@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "ibm_hackathon",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

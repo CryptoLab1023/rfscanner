@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "release": "project-id",
+    "develop": "rfscanner14"
+  }
+}

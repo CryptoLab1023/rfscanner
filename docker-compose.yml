@@ -1,0 +1,30 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d/:ro
+  web:
+    build: ./src
+    env_file: .env
+    volumes:
+      - ./src:/src
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    links:
+      - db
+    # command: tail -F anything
+    # command :
+    #   ["bash", "/src/wait-for-it.sh", "db:3306", "--", "python", "/src/main.py"]
+    
+
+
+      

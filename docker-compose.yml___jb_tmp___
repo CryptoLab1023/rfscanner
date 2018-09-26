@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mysql:
+    build: ./mysql/
+    volumes:
+      - ./mysql/mysql_data:/var/lib/mysql # データの永続化
+      - ./mysql/sqls:/docker-entrypoint-initdb.d # 初期データ投入
+    environment:
+      - MYSQL_ROOT_USER=root #rootユーザーの設定
+      - MYSQL_ROOT_PASSWORD=root #rootパスワードの設定
+  app:
+    build: ./src
+    env_file: .env
+    links:
+    - mysql
+    volumes:
+    - ./src:/src
+    ports:
+    - "8080:8080"

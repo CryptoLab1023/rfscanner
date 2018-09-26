@@ -1,0 +1,14 @@
+URLS:
+Root:
+https://bousai4-boaarmpit.c9users.io/
+
+Uploaded images:
+http://bousai4-boaarmpit.c9users.io/img/upload/cat.jpeg
+
+Uploading file from drone:
+  https://curl.haxx.se/docs/httpscripting.html#PUT
+  
+Watson API
+  https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#apiexplorer
+  
+  

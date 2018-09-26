@@ -1,0 +1,199 @@
+#!/home/ubuntu/miniconda3/bin/python
+import os
+import subprocess
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory
+from werkzeug.utils import secure_filename
+import mysql.connector
+
+from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
+
+import modules.speechToText as st
+
+import psycopg2
+import threading
+import time
+
+UPLOAD_FOLDER = './static/img/upload/'
+ALLOWED_EXTENSIONS = set(['txt', 'wav', 'flac', 'jpg', 'jpeg', 'png'])
+
+app = Flask(__name__, static_folder='./static/')
+GoogleMaps(app)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+config = {
+        'user': 'root',
+        'password': 'root',
+        'host': 'db',
+        'port': '3306',
+        'database': 'ibm_hack_db'
+    }
+
+while(True):
+    try:
+        connector = mysql.connector.connect(**config)
+        print("Connected")
+        break
+    except:
+        print("Couldn't connect")
+        time.sleep(1)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/', methods=['GET'])
+def index():
+    return redirect(url_for('static', filename='static/map_static.html'))
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file'))
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+    '''
+
+
+@app.route('/uploaded_file')
+def uploaded_file():
+    return 'Uploaded successfully!'
+
+@app.route('/update')
+def update():
+    threads = []
+    print("Analyzing images")
+    #subprocess.call(["./image_processing.py"])
+    t1 = threading.Thread(target=t_image_processing)
+    threads.append(t1)
+    t1.start()
+
+    print("Analyzing audio")
+    t2 = threading.Thread(target=t_speechToText)
+    threads.append(t2)
+    t2.start()
+    #subprocess.call(["./speechToText.py"])
+    return ""
+
+def t_image_processing():
+    subprocess.call(["./image_processing.py"])
+    return
+
+def t_speechToText():
+    subprocess.call(["./speechToText.py"])
+    return
+
+@app.route('/map')
+def mapview():
+    # creating a map in the view
+
+    data = [
+            {
+                'icon': 'http://bousai4-boaarmpit.c9users.io/static/img/srd_icon_yellow.png',
+                'lat': 35.680795,
+                'lng': 139.734105,
+                'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/2017-01-22_152749_4.jpg' width='100' height='100' />",
+            }
+        ]
+    #data.append({'icon':'http://bousai4-boaarmpit.c9users.io/static/img/upload/test/srd_icon_green.png', 'lat': 35.675438, 'lng': 139.782242, 'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/test/2017-01-21_194026.jpg' width='100' height='100' />", })
+
+    # connector = psycopg2.connect(host="localhost:5432", database="sample", user="root", password="secret")
+
+    cursor = connector.cursor()
+    #sql = "SELECT mobile.mid AS mid, mobile.interval AS created_at, (SELECT lat FROM location WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS lat, (SELECT lng FROM location WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS lng, (SELECT path FROM photo WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS infobox FROM danger_mid AS mobile WHERE danger = 1"
+    # sql = "SELECT interval, danger, face, movement, voice, (SELECT lat FROM location WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS lat, (SELECT lng FROM location WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS lng, (SELECT path FROM photo WHERE mobile.interval::timestamp <= created_at::timestamp ORDER BY created_at ASC LIMIT 1) AS infobox FROM danger_mid as mobile"
+    # cursor.execute(sql)
+    # result = cursor.fetchall()
+
+
+    # count = 0
+    # for place in result:
+    #     face=int(place[2])
+    #     movement=int(place[3])
+    #     voice=int(place[4])
+    #     if place[5] is not None:
+    #         if(face == 0):
+    #             data.append({'icon':'http://bousai4-boaarmpit.c9users.io/static/img/srd_icon_green.png', 'lat': place[5], 'lng': place[6], 'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/"+ place[7].replace("/photo", "") + "' width='100' height='100' />"})
+    #         elif(movement+voice == 0):
+    #             data.append({'icon':'http://bousai4-boaarmpit.c9users.io/static/img/srd_icon_red.png', 'lat': place[5], 'lng': place[6], 'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/"+ place[7].replace("/photo", "") + "' width='100' height='100' />"})
+    #         elif(movement+voice >= 1):
+    #             data.append({'icon':'http://bousai4-boaarmpit.c9users.io/static/img/srd_icon_yellow.png', 'lat': place[5], 'lng': place[6], 'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/"+ place[7].replace("/photo", "") + "' width='100' height='100' />"})
+    #         else:
+    #             data.append({'icon':'http://bousai4-boaarmpit.c9users.io/static/img/srd_icon_black.png', 'lat': place[5], 'lng': place[6], 'infobox': "<img src='http://bousai4-boaarmpit.c9users.io/static/img/upload/"+ place[7].replace("/photo", "") + "' width='100' height='100' />"})
+    #     count = count + 1
+    # cursor.close()
+    # connector.close()
+
+    mymap = Map(
+        identifier="view-side",
+        lat=35.680795,
+        lng=139.734105,
+        markers=[(35.680795, 139.734105)]
+    )
+    sndmap = Map(
+        identifier="sndmap",
+        lat=35.680795,
+        lng=139.734105,
+        style="border:solid 2px #0a0a0a;height:600px;width:1400px;margin:20;color:rgba(0,0,0,0.1)",
+        markers=data
+    )
+
+    return render_template('example.html',  mymap=mymap, sndmap=sndmap)
+
+
+@app.route('/static/<path:filename>')
+def send_static(filename):
+    print(filename)
+    root_dir = './static/'
+    return send_from_directory(os.path.join(root_dir), filename)
+
+
+@app.route('/get_message', methods=['GET', 'POST'])
+def receive_void():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            st.isVoice(file)
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file'))
+
+@app.route('/get_face_data', methods=['GET', 'POST'])
+def recieve_face_data():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            st.isVoice(file)
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file'))
+
+if __name__ == "__main__":
+    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
