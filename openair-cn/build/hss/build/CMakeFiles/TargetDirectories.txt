@@ -1,0 +1,8 @@
+/home/nano/openair-cn/build/hss/build/CMakeFiles/oai_hss.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/hss_utils.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/rebuild_cache.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/hss_access_restriction.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/hss_auc.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/edit_cache.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/hss_db.dir
+/home/nano/openair-cn/build/hss/build/CMakeFiles/hss_s6a.dir

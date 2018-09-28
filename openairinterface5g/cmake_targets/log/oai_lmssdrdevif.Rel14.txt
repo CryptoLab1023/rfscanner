@@ -1,0 +1,5 @@
+Built target generate_T
+Scanning dependencies of target oai_lmssdrdevif
+Building CXX object CMakeFiles/oai_lmssdrdevif.dir/home/nano/openairinterface5g/targets/ARCH/LMSSDR/USERSPACE/LIB/lms_lib.cpp.o
+Linking CXX shared module liboai_lmssdrdevif.so
+Built target oai_lmssdrdevif

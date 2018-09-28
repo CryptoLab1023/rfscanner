@@ -1,0 +1,23 @@
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/nano/openair-cn/build/hss/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_065a6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_065a6.dir/build.make CMakeFiles/cmTC_065a6.dir/build
+make[1]: ディレクトリ '/home/nano/openair-cn/build/hss/build/CMakeFiles/CMakeTmp' に入ります
+Building C object CMakeFiles/cmTC_065a6.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -msse4.2 -std=gnu99 -Wall -Wstrict-prototypes -fno-strict-aliasing -rdynamic -funroll-loops -Wno-packed-bitfield-compat -DCMAKER -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_065a6.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:6:1: warning: function declaration isn’t a prototype [-Wstrict-prototypes]
+ char CHECK_FUNCTION_EXISTS();
+ ^
+Linking C executable cmTC_065a6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_065a6.dir/link.txt --verbose=1
+/usr/bin/cc   -msse4.2 -std=gnu99 -Wall -Wstrict-prototypes -fno-strict-aliasing -rdynamic -funroll-loops -Wno-packed-bitfield-compat -DCMAKER -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_065a6.dir/CheckFunctionExists.c.o  -o cmTC_065a6 -rdynamic -lpthreads 
+/usr/bin/ld: -lpthreads が見つかりません
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_065a6.dir/build.make:97: ターゲット 'cmTC_065a6' のレシピで失敗しました
+make[1]: *** [cmTC_065a6] エラー 1
+make[1]: ディレクトリ '/home/nano/openair-cn/build/hss/build/CMakeFiles/CMakeTmp' から出ます
+Makefile:126: ターゲット 'cmTC_065a6/fast' のレシピで失敗しました
+make: *** [cmTC_065a6/fast] エラー 2
+
+

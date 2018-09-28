@@ -1,0 +1,324 @@
+diff --git a/build/tools/build_helper b/build/tools/build_helper
+index 0775501..21972db 100644
+--- a/build/tools/build_helper
++++ b/build/tools/build_helper
+@@ -99,6 +99,7 @@ check_supported_distribution() {
+     local distribution=$(get_distribution_release)
+     case "$distribution" in
+         "ubuntu16.04") return 0 ;;
++	"ubuntu17.04") return 0 ;;
+         "ubuntu14.04") return 0 ;;
+         "rhel7")       return 0 ;;
+         "centos7")     return 0 ;;
+@@ -140,55 +141,6 @@ clean_all_files() {
+ }
+ 
+ #-------------------------------------------------------------------------------
+-# Remove Nettle installation which was done from sources (only done for Ubuntu distro)
+-remove_nettle_from_source() {
+-    nettle_uninstall_log=$OPENAIRCN_DIR/BUILD/LOG/nettle_uninstall_log.txt
+-    echo_info "\nUn-Installing Nettle from sources. The log file for nettle un-installation is here: $nettle_uninstall_log "
+-    (
+-    $SUDO apt-get remove -y nettle-dev nettle-bin 
+-    cd /tmp
+-    echo "Downloading nettle archive"
+-    $SUDO rm -rf /tmp/nettle-2.5.tar.gz* /tmp/nettle-2.5
+-    wget https://ftp.gnu.org/gnu/nettle/nettle-2.5.tar.gz
+-    if [ $? -ne 0 ]; then
+-      wget ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-2.5.tar.gz
+-    fi
+-    if [ ! -f nettle-2.5.tar.gz ]; then
+-      echo_error "Could not download nettle source files"
+-      cd -
+-      return
+-    fi
+-    tar -xzf nettle-2.5.tar.gz
+-    cd nettle-2.5/
+-    ./configure --disable-openssl --enable-shared --prefix=/usr 
+-    $SUDO make uninstall || true 
+-    ) >& $nettle_uninstall_log
+-}
+-
+-#-------------------------------------------------------------------------------
+-# Remove Gnutls from source (only done for Ubuntu distro)
+-remove_gnutls_from_source(){
+-    gnutls_uninstall_log=$OPENAIRCN_DIR/BUILD/LOG/gnutls_uninstall_log.txt
+-    echo_info "\nUn-Installing Gnutls. The log file for Gnutls un-installation is here: $gnutls_uninstall_log "
+-    (
+-    $SUDO apt-get remove -y libgnutls-dev
+-    cd /tmp 
+-    echo "Downloading gnutls archive"
+-    $SUDO rm -rf /tmp/gnutls-3.1.23.tar.xz* /tmp/gnutls-3.1.23
+-    wget http://mirrors.dotsrc.org/gcrypt/gnutls/v3.1/gnutls-3.1.23.tar.xz || \
+-      wget ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1/gnutls-3.1.23.tar.xz
+-    if [ ! -f gnutls-3.1.23.tar.xz ]; then
+-      echo_error "Could not download gnutls source files"
+-      cd -
+-      return
+-    fi
+-    tar -xJf gnutls-3.1.23.tar.xz
+-    cd gnutls-3.1.23/
+-    ./configure --prefix=/usr
+-    $SUDO make uninstall || true
+-    )>& $gnutls_uninstall_log
+-}
+-
+ ###################################
+ # Compilers
+ ###################################
+@@ -461,25 +413,25 @@ install_freediameter_from_source() {
+       autoconf \
+       automake \
+       bison \
+-      build-essential \
+-      cmake \
+-      cmake-curses-gui \
+-      debhelper \
+-      flex \
+-      g++ \
+-      gcc \
+-      gdb \
+-      libgcrypt-dev \
+-      libgnutls-dev \
+-      libidn11-dev \
+-      libmysqlclient-dev \
+-      libpq-dev \
+-      libsctp1 \
+-      libsctp-dev \
+-      libxml2-dev \
+-      mercurial \
+-      python-dev \
+-      ssl-cert \
++    build-essential \
++    cmake \
++    cmake-curses-gui  \
++    debhelper \
++    flex  \
++    g++ \
++    gcc \
++    gdb \
++    libgcrypt-dev \
++    libgnutls28-dev \
++    libidn11-dev \
++    libmysqlclient-dev \
++    libpq-dev \
++    libsctp1 \
++    libsctp-dev \
++    libxml2-dev \
++    mercurial \
++    python-dev \
++    ssl-cert \
+       swig"
+   elif [[ "$OS_BASEDISTRO" == "fedora" ]]; then
+     PACKAGE_LIST="\
+@@ -732,6 +684,14 @@ check_install_hss_software() {
+         libapache2-mod-php*"
+       ;;
+     "ubuntu16.04")
++          PACKAGE_LIST="\
++        php \
++        phpmyadmin \
++        python-pexpect \
++        libapache2-mod-php*"
++      ;;
++
++    "ubuntu17.04")
+       PACKAGE_LIST="\
+         php \
+         phpmyadmin \
+@@ -782,7 +742,7 @@ check_install_mme_software() {
+       doxygen \
+       doxygen-gui \
+       flex \
+-      gccxml \
++    castxml \
+       gdb \
+       git \
+       pkg-config \
+@@ -860,11 +820,8 @@ check_install_mme_software() {
+   fi
+ 
+   if [[ $OS_DISTRO == 'ubuntu' ]]; then
+-    #Remove old gnutls/nettle installation that was done from sources
+-    remove_nettle_from_source
+-    remove_gnutls_from_source
+     $SUDO apt-get install -y nettle-dev nettle-bin
+-    $SUDO apt-get install -y libgnutls-dev
++  $SUDO apt-get install -y libgnutls28-dev
+   fi
+   
+   install_freediameter_from_source $1
+@@ -953,7 +910,7 @@ check_install_spgw_software() {
+       doxygen \
+       doxygen-gui \
+       flex \
+-      gccxml \
++      castxml \
+       gdb \
+       git \
+       pkg-config \
+diff --git a/scripts/run_spgw b/scripts/run_spgw
+index 2d9f76b..17b82f5 100755
+--- a/scripts/run_spgw
++++ b/scripts/run_spgw
+@@ -173,7 +173,7 @@ function main()
+     fi
+   else
+     if [ ! -e /usr/local/bin/spgw ]; then
+-    echo_fatal "Cannot find /usr/local/bin/mme executable, have a look at the output of build_spgw executable"
++    echo_fatal "Cannot find /usr/local/bin/spgw executable, have a look at the output of build_spgw executable"
+     fi
+   fi
+ 
+diff --git a/src/common/common_defs.h b/src/common/common_defs.h
+index 4a1d73d..94bd9eb 100644
+--- a/src/common/common_defs.h
++++ b/src/common/common_defs.h
+@@ -109,11 +109,8 @@ typedef enum {
+ 
+ #define IPV4_STR_ADDR_TO_INT_NWBO(AdDr_StR,NwBo,MeSsAgE ) do {\
+             struct in_addr inp;\
+-            if ( inet_aton(AdDr_StR, &inp ) < 0 ) {\
+-                AssertFatal (0, MeSsAgE);\
+-            } else {\
+-                NwBo = inp.s_addr;\
+-            }\
++            AssertFatal (inet_aton(AdDr_StR, &inp ) , MeSsAgE);\
++            NwBo = inp.s_addr;\
+         } while (0)
+ 
+ #define NIPADDR(addr) \
+diff --git a/src/gtpv1-u/gtp_mod_kernel.c b/src/gtpv1-u/gtp_mod_kernel.c
+index 43d65a4..ff60085 100644
+--- a/src/gtpv1-u/gtp_mod_kernel.c
++++ b/src/gtpv1-u/gtp_mod_kernel.c
+@@ -31,7 +31,7 @@ static struct {
+ #define GTP_DEVNAME "gtp0"
+ 
+ //------------------------------------------------------------------------------
+-int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask, int gtp_dev_mtu)
++int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask, spgw_config_t * spgw_config)
+ {
+   // we don't need GTP v0, but interface with kernel requires 2 file descriptors
+   *fd0 = socket(AF_INET, SOCK_DGRAM, 0);
+@@ -47,7 +47,7 @@ int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask, i
+       .sin_family = AF_INET,
+       .sin_port = htons(GTPV1U_UDP_PORT),
+       .sin_addr = {
+-          .s_addr   = INADDR_ANY,
++          .s_addr   = spgw_config->sgw_config.ipv4.S1u_S12_S4_up,
+       },
+   };
+ 
+@@ -80,7 +80,7 @@ int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask, i
+   }
+   OAILOG_NOTICE (LOG_GTPV1U, "Using the GTP kernel mode (genl ID is %d)\n", gtp_nl.genl_id);
+ 
+-  bstring system_cmd = bformat ("ip link set dev %s mtu %u", GTP_DEVNAME, gtp_dev_mtu);
++  bstring system_cmd = bformat ("ip link set dev %s mtu %u", GTP_DEVNAME,spgw_config->pgw_config.ipv4.mtu_SGI);
+   int ret = system ((const char *)system_cmd->data);
+   if (ret) {
+     OAILOG_ERROR (LOG_GTPV1U, "ERROR in system command %s: %d at %s:%u\n", bdata(system_cmd), ret, __FILE__, __LINE__);
+diff --git a/src/gtpv1-u/gtp_mod_kernel.h b/src/gtpv1-u/gtp_mod_kernel.h
+index c31bf49..60faf25 100644
+--- a/src/gtpv1-u/gtp_mod_kernel.h
++++ b/src/gtpv1-u/gtp_mod_kernel.h
+@@ -6,7 +6,7 @@ bool gtp_mod_kernel_enabled(void);
+ int gtp_mod_kernel_tunnel_add(struct in_addr ue, struct in_addr gw, uint32_t i_tei, uint32_t o_tei);
+ int gtp_mod_kernel_tunnel_del(uint32_t i_tei, uint32_t o_tei);
+ 
+-int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask, int gtp_dev_mtu);
++int gtp_mod_kernel_init(int *fd0, int *fd1u, struct in_addr *ue_net, int mask,spgw_config_t * spgw_config);
+ void gtp_mod_kernel_stop(void);
+ 
+ #endif /* FILE_GTP_MOD_KERNEL_SEEN */
+diff --git a/src/gtpv1-u/gtpv1u_task.c b/src/gtpv1-u/gtpv1u_task.c
+index 10f5dda..a1ebf20 100644
+--- a/src/gtpv1-u/gtpv1u_task.c
++++ b/src/gtpv1-u/gtpv1u_task.c
+@@ -111,7 +111,7 @@ int gtpv1u_init (spgw_config_t *spgw_config)
+     gtp_mod_kernel_init(&sgw_app.gtpv1u_data.fd0, &sgw_app.gtpv1u_data.fd1u,
+         &spgw_config->pgw_config.ue_pool_addr[i],
+         spgw_config->pgw_config.ue_pool_mask[i],
+-        spgw_config->pgw_config.ipv4.mtu_SGI);
++          spgw_config);
+   }
+   // END-GTP quick integration only for evaluation purpose
+ 
+diff --git a/src/nas/emm/Attach.c b/src/nas/emm/Attach.c
+index de1b280..b334dca 100644
+--- a/src/nas/emm/Attach.c
++++ b/src/nas/emm/Attach.c
+@@ -611,8 +611,12 @@ emm_proc_attach_reject (
+     rc = _emm_attach_reject (&ue_ctx);
+   } else {
+     emm_data_context_t * emm_ctx_p = emm_data_context_get (&_emm_data, ue_id);
++    if ( emm_ctx_p == NULL )
++       OAILOG_ERROR (LOG_NAS_EMM, "EMM-PROC  - No EMM context exists\n");
++    else {
+     emm_ctx_p->emm_cause = emm_cause;
+     rc = _emm_attach_reject (emm_ctx_p);
++    }
+  }
+   OAILOG_FUNC_RETURN (LOG_NAS_EMM, rc);
+ }
+diff --git a/src/nas/ies/SupportedCodecList.c b/src/nas/ies/SupportedCodecList.c
+index bc4e2c6..2d89658 100644
+--- a/src/nas/ies/SupportedCodecList.c
++++ b/src/nas/ies/SupportedCodecList.c
+@@ -55,7 +55,7 @@ decode_supported_codec_list (
+ #if NAS_DEBUG
+   dump_supported_codec_list_xml (supportedcodeclist, iei);
+ #endif
+-  return decoded;
++  return ielen+2;
+ }
+ 
+ int
+diff --git a/src/oai_hss/utils/hss_config.c b/src/oai_hss/utils/hss_config.c
+index c7461e4..5cfcbc9 100755
+--- a/src/oai_hss/utils/hss_config.c
++++ b/src/oai_hss/utils/hss_config.c
+@@ -297,8 +297,8 @@ hss_config_parse_file (
+     if (  (config_setting_lookup_string( setting, HSS_CONFIG_STRING_OPERATOR_KEY, (const char **)&astring) )) {
+       hss_config_p->operator_key = strdup(astring);
+     } else {
+-      FPRINTF_ERROR( "Failed to parse HSS configuration file token %s!\n", HSS_CONFIG_STRING_OPERATOR_KEY);
+-      return ret;
++      //FPRINTF_ERROR( "Failed to parse HSS configuration file token %s!\n", HSS_CONFIG_STRING_OPERATOR_KEY);
++      //return ret;
+     }
+ 
+     if (  (config_setting_lookup_string( setting, HSS_CONFIG_STRING_RANDOM, (const char **)&astring) )) {
+diff --git a/src/s6a/s6a_peer.c b/src/s6a/s6a_peer.c
+index b58558f..52a99db 100644
+--- a/src/s6a/s6a_peer.c
++++ b/src/s6a/s6a_peer.c
+@@ -88,8 +88,6 @@ int
+ s6a_fd_new_peer (
+   void)
+ {
+-  char                                    host_name[100];
+-  size_t                                  host_name_len = 0;
+   int                                     ret = 0;
+ #if FD_CONF_FILE_NO_CONNECT_PEERS_CONFIGURED
+   struct peer_info                        info = {0};
+@@ -100,18 +98,6 @@ s6a_fd_new_peer (
+     return RETURNerror;
+   }
+ 
+-  if (fd_g_config->cnf_diamid ) {
+-    free (fd_g_config->cnf_diamid);
+-    fd_g_config->cnf_diamid_len = 0;
+-  }
+-
+-  DevAssert (gethostname (host_name, 100) == 0);
+-  host_name_len = strlen (host_name);
+-  host_name[host_name_len] = '.';
+-  host_name[host_name_len + 1] = '\0';
+-  strcat (host_name, (const char *)mme_config.realm->data);
+-  fd_g_config->cnf_diamid = strdup (host_name);
+-  fd_g_config->cnf_diamid_len = strlen (fd_g_config->cnf_diamid);
+   OAILOG_DEBUG (LOG_S6A, "Diameter identity of MME: %s with length: %zd\n", fd_g_config->cnf_diamid, fd_g_config->cnf_diamid_len);
+   bstring                                 hss_name = bstrcpy(mme_config.s6a_config.hss_host_name);
+   bconchar(hss_name, '.');

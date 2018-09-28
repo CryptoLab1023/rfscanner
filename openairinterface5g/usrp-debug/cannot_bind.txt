@@ -1,0 +1,242 @@
+root@nano:~/openairinterface5g# ./script.sh 
+# /dev/cpu_dma_latency set to 0us
+log init done
+Running with XFORMS!
+num component carrier 1 
+WARNING: setting 'gtpu_log_level' not found in configuration file
+WARNING: setting 'gtpu_log_verbosity' not found in configuration file
+WARNING: setting 'udp_log_level' not found in configuration file
+WARNING: setting 'udp_log_verbosity' not found in configuration file
+WARNING: setting 'osa_log_level' not found in configuration file
+WARNING: setting 'osa_log_verbosity' not found in configuration file
+
+----------------------------------------------------------------------
+ ENB CONFIG FILE CONTENT LOADED (TBC):
+----------------------------------------------------------------------
+ENB CONFIG for instance 0:
+
+	eNB name:           	eNB_Eurecom_LTEBox:
+	eNB ID:             	3584:
+	Cell type:          	CELL_MACRO_ENB:
+	TAC:                	1:
+	MCC:                	244:
+	MNC:                	91:
+
+	node_function for CC 0:      	eNodeB_3GPP:
+	node_timing for CC 0:        	synch_to_ext_device:
+	node_synch_ref for CC 0:     	0:
+	eutra band for CC 0:         	7:
+	downlink freq for CC 0:      	2680000000:
+	uplink freq offset for CC 0: 	-120000000:
+
+	Cell ID for CC 0:	0:
+	N_RB_DL for CC 0:	25:
+	nb_antenna_ports for CC 0:	1:
+	nb_antennas_tx for CC 0:	1:
+	nb_antennas_rx for CC 0:	1:
+	rach_numberOfRA_Preambles for CC 0:	15:
+	rach_preamblesGroupAConfig for CC 0:	0:
+	rach_powerRampingStep for CC 0:	2:
+	rach_preambleInitialReceivedTargetPower for CC 0:	8:
+	rach_preambleTransMax for CC 0:	6:
+	rach_raResponseWindowSize for CC 0:	7:
+	rach_macContentionResolutionTimer for CC 0:	5:
+	rach_maxHARQ_Msg3Tx for CC 0:	4:
+	bcch_modificationPeriodCoeff for CC 0:	0:
+	pcch_defaultPagingCycle for CC 0:	2:
+	pcch_nB for CC 0:	2:
+	prach_root for CC 0:	0:
+	prach_config_index for CC 0:	0:
+	prach_high_speed for CC 0:	0:
+	prach_zero_correlation for CC 0:	1:
+	prach_freq_offset for CC 0:	2:
+	pdsch_referenceSignalPower for CC 0:	-34:
+	pdsch_p_b for CC 0:	0:
+	pusch_n_SB for CC 0:	1:
+	pusch_hoppingMode for CC 0:	0:
+	pusch_hoppingOffset for CC 0:	0:
+	pusch_enable64QAM for CC 0:	0:
+	pusch_groupHoppingEnabled for CC 0:	1:
+	pusch_groupAssignment for CC 0:	0:
+	pusch_sequenceHoppingEnabled for CC 0:	0:
+	pusch_nDMRS1 for CC 0:	1:
+	pucch_delta_shift for CC 0:	0:
+	pucch_nRB_CQI for CC 0:	1:
+	pucch_nCS_AN for CC 0:	0:
+	srs_enable for CC 0:	0:
+	pusch_p0_Nominal for CC 0:	-96:
+	pucch_p0_Nominal for CC 0:	-104:
+	pusch_alpha for CC 0:	7:
+	pucch_deltaF_Format1 for CC 0:	2:
+	pucch_deltaF_Format1b for CC 0:	1:
+	pucch_deltaF_Format2 for CC 0:	1:
+	pucch_deltaF_Format2a for CC 0:	1:
+	pucch_deltaF_Format2b for CC 0:	1:
+	msg3_delta_Preamble for CC 0:	6:
+	ul_CyclicPrefixLength for CC 0:	0:
+	ue_TimersAndConstants_t300 for CC 0:	5:
+	ue_TimersAndConstants_t301 for CC 0:	5:
+	ue_TimersAndConstants_t310 for CC 0:	5:
+	ue_TimersAndConstants_n310 for CC 0:	7:
+	ue_TimersAndConstants_t311 for CC 0:	3:
+	ue_TimersAndConstants_n311 for CC 0:	0:
+	ue_TransmissionMode for CC 0:	0:
+
+	Global log level:  	info
+	HW log level:      	info
+	PHY log level:     	info
+	MAC log level:     	info
+	RLC log level:     	info
+	PDCP log level:    	info
+	RRC log level:     	info
+	UDP log level:     	info
+	GTP log level:     	info
+	OSA log level:     	info
+
+--------------------------------------------------------
+Downlink frequency/ uplink offset of CC_id 0 set to 2680000000/-120000000
+configuring for eNB
+CPU Freq is 2.195168 
+reported resolution = 1 ns
+[HW][I]Version: Branch: master Abrev. Hash: ae0494b Date: Fri Nov 17 15:59:21 2017 +0100
+[PHY][I]Initializing frame parms for N_RB_DL 25, Ncp 0, osf 1
+lte_parms.c: Setting N_RB_DL to 25, ofdm_symbol_size 512
+[PHY][I][eNB 0] Initializing DL_FRAME_PARMS : N_RB_DL 25, PHICH Resource 1, PHICH Duration 0
+[openair][LTE_PHY][INIT] common_vars->txdataF[0][0] = 0x7f7aff7db040 (286720 bytes)
+[openair][LTE_PHY][INIT] common_vars->txdataF[0][5] = 0x7f7aff794040 (286720 bytes)
+[openair][LTE_PHY][INIT] common_vars->txdata[0][0] = 0x7f7aff748040 (307200 bytes)
+[openair][LTE_PHY][INIT] common_vars->rxdata[0][0] = 0x7f7aff6fc040 (307200 bytes)
+[openair][LTE_PHY][INIT] common_vars->rxdata_7_5kHz[0][0] = 0x171b9400 (61440 bytes)
+[openair][LTE_PHY][INIT] prach_vars->rxsigF[0] = 0x175840c0
+[openair][LTE_PHY][INIT] prach_vars->prach_ifft[0] = 0x1758a120
+[PHY][I]init eNB: Node Function 0
+[PHY][I]init eNB: Nid_cell 0
+[PHY][I]init eNB: frame_type 0,tdd_config 3
+[PHY][I]init eNB: number of ue max 16 number of enb max 1 number of harq pid max 8
+[PHY][I]init eNB: N_RB_DL 25
+[PHY][I]init eNB: prach_config_index 0
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 0
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 0
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 1
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 1
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 2
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 2
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 3
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 3
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 4
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 4
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 5
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 5
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 6
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 6
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 7
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 7
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 8
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 8
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 9
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 9
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 10
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 10
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 11
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 11
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 12
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 12
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 13
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 13
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 14
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 14
+[PHY][I]Allocating Transport Channel Buffers for DLSCH, UE 15
+[PHY][I]Allocating Transport Channel Buffer for ULSCH, UE 15
+CPU Freq is 2.195102 
+frame_parms->N_RB_DL=25
+frame_parms->N_RB_UL=25
+frame_parms->Nid_cell=0
+frame_parms->Ncp=0
+frame_parms->Ncp_UL=0
+frame_parms->nushift=0
+frame_parms->frame_type=0
+frame_parms->tdd_config=3
+frame_parms->tdd_config_S=0
+frame_parms->mode1_flag=1
+frame_parms->nb_antenna_ports_eNB=1
+frame_parms->nb_antennas_tx=1
+frame_parms->nb_antennas_rx=1
+frame_parms->ofdm_symbol_size=512
+frame_parms->nb_prefix_samples=36
+frame_parms->nb_prefix_samples0=40
+frame_parms->first_carrier_offset=362
+frame_parms->samples_per_tti=7680
+frame_parms->symbols_per_tti=14
+HW: Configuring card 0, nb_antennas_tx/rx 1/1
+Card 0, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 0, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 0, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 0, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 1, nb_antennas_tx/rx 1/1
+Card 1, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 1, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 1, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 1, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 2, nb_antennas_tx/rx 1/1
+Card 2, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 2, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 2, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 2, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 3, nb_antennas_tx/rx 1/1
+Card 3, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 3, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 3, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 3, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 4, nb_antennas_tx/rx 1/1
+Card 4, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 4, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 4, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 4, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 5, nb_antennas_tx/rx 1/1
+Card 5, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 5, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 5, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 5, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 6, nb_antennas_tx/rx 1/1
+Card 6, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 6, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 6, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 6, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+HW: Configuring card 7, nb_antennas_tx/rx 1/1
+Card 7, channel 0, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 2680000000.000000, rx_freq 2560000000.000000
+Card 7, channel 1, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 7, channel 2, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+Card 7, channel 3, Setting tx_gain 7.000000, rx_gain 116.000000, tx_freq 0.000000, rx_freq 0.000000
+[HW][I]CPU Affinity of main() function is...  CPU_0  CPU_1  CPU_2  CPU_3 
+[PHY][I]Intializing L2
+[MAC][I][l2_init] [MAIN] MAC_INIT_GLOBAL_PARAM IN...
+[MAC][I][mac_init_global_param] [MAIN] CALLING RLC_MODULE_INIT...
+[MAC][I][mac_init_global_param] [MAIN] RLC_MODULE_INIT OK, malloc16 for mac_rlc_xface...
+[MAC][I][mac_init_global_param] [MAIN] malloc16 OK, mac_rlc_xface @ 0x19248880
+[MAC][I][mac_init_global_param] [MAIN] RLC interface setup and init
+[PDCP][I]PDCP layer has been initialized
+[MAC][I][mac_init_global_param] [MAIN] Init Global Param Done
+[MAC][I][l2_init] [MAIN] init eNB MAC functions  
+[MAC][I][l2_init] [MAIN] init UE MAC functions 
+[MAC][I][l2_init] [MAIN] PHY Frame configuration 
+[MAC][I][mac_top_init] [MAIN] Init function start:Nb_UE_INST=0
+[MAC][I][mac_top_init] [MAIN] Init function start:Nb_eNB_INST=1
+[MAC][I][mac_top_init] [MAIN] calling RRC
+[RRC][I][eNB] handover active state is 0 
+[RRC][I][eNB] eMBMS active state is 0 
+[MAC][I][mac_top_init] [MAIN][INIT] Init function finished
+[SCTP][I][sctp_eNB_task] Starting SCTP layer
+[S1AP][I][s1ap_eNB_task] Starting S1AP layer
+[UDP][I]Initializing UDP task interface
+[UDP][I]Initializing UDP task interface: DONE
+[GTPV1U][I]Initializing GTPU stack 0x103e080
+ITTI tasks created
+Wait for the ITTI initialize message
+[UDP][I]Initializing UDP for local address 192.168.10.3 with port 2152
+
+Assertion (rc >= 0) failed!
+In udp_eNB_create_socket() /home/nano/openairinterface5g/openair3/UDP/udp_eNB_task.c:173
+UDP: Failed to bind socket: (Cannot assign requested address:99) address 192.168.10.3 port 2152
+
+Exiting execution
+

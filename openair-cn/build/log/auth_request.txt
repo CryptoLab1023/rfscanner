@@ -1,0 +1,24 @@
+[  1%] Built target GTPV2C
+[  1%] Built target MSC
+[  2%] Built target GTPV1U
+[  3%] Built target CN_UTILS
+[  3%] Built target HASHTABLE
+[  3%] Built target BSTR
+[  4%] Built target ITTI
+[  8%] Built target LFDS
+[  8%] Built target UDP_SERVER
+[ 10%] Built target SGW
+[ 11%] Built target S11_SGW
+[ 11%] Built target SCTP_SERVER
+[ 12%] Built target S1AP_EPC
+[ 13%] Built target SECU_CN
+[ 14%] Built target S11_MME
+[ 16%] Built target S6A
+[ 16%] Linking C executable auth_request
+[ 18%] Built target MME_APP
+[ 18%] Built target spgw
+[ 19%] Built target auth_request
+[ 20%] Built target test_mme_app_ue_context_imsi
+[ 45%] Built target LIB_NAS_MME
+[ 99%] Built target S1AP_LIB
+[100%] Built target mme
