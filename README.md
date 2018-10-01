@@ -27,7 +27,6 @@ before...  Bought LimeSDR
   2. TDoA synced with GPS
   3. DoA by Doppler synced with GPS
   4. DoA by Monopulse synced with GPS
-
 2. [OpenAirInterface5G with LimeSDR](https://plus.google.com/photos/photo/106790857831943452518/6294922314878237570)
   we were impressed by this.
 
