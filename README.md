@@ -22,7 +22,10 @@
 before...  Bought LimeSDR 
 
 ## Technial behind
-1. RTLS using __ToA, TDoA, DoA by Doppler, DoA by Monopulse.__
+  RTLS using __ToA, TDoA, DoA by Doppler, DoA by Monopulse.__
 
 ## Roadmap
 2018 Field Experiment
+
+## Cost per unit
+LimeSDR(299$) + PC(500$) = RFscanner(800$)
