@@ -22,7 +22,11 @@
 before...  Bought LimeSDR 
 
 ## Technial behind
-  RTLS using __ToA, TDoA, DoA by Doppler, DoA by Monopulse.__
+RTLS using
+1. ToA synced with GPS
+2. TDoA synced with GPS
+3. DoA by Doppler synced with GPS
+4. DoA by Monopulse synced with GPS
 
 ## Roadmap
 2018 Field Experiment
