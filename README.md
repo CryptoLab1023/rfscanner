@@ -29,8 +29,8 @@ RTLS using
 4. DoA by Monopulse synced with GPS
 
 ## Roadmap
- 2018 Field Experiment
- 2019 Field Experiment with Drone
+* 2018 Field Experiment
+* 2019 Field Experiment with Drone
  
 ## Cost per unit
  LimeSDR(299$) + PC(500$) = RFscanner(800$)
