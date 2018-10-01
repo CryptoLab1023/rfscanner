@@ -1,11 +1,11 @@
 # RFscanner aim to save disater victims.
 
-## The sequence
+## Sequence
 1. Find victims with smartphone by RFscanner
 2. Drone rushes to the victim
 3. Do triage (sorting and allocating aid on the basis of need) 
 
-## The functions
+## Functions
 1. Find cellphone by trilateration of LTE signal<br>
  we use [openairinterface5G](https://gitlab.eurecom.fr/oai/openairinterface5g) and LimeSDR.
 
@@ -22,11 +22,14 @@
 before...  Bought LimeSDR 
 
 ## Technial behind
-RTLS using
-1. ToA synced with GPS
-2. TDoA synced with GPS
-3. DoA by Doppler synced with GPS
-4. DoA by Monopulse synced with GPS
+1. RTLS using
+  1. ToA synced with GPS
+  2. TDoA synced with GPS
+  3. DoA by Doppler synced with GPS
+  4. DoA by Monopulse synced with GPS
+
+2. [OpenAirInterface5G with LimeSDR](https://plus.google.com/photos/photo/106790857831943452518/6294922314878237570)
+  we were impressed by this.
 
 ## Roadmap
 * 2018 Field Experiment
