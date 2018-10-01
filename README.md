@@ -1,12 +1,12 @@
 # RFscanner aim to save disater victims.
 
 ## The sequence
-1. Find victims with smartphone 
+1. Find victims with smartphone by RFscanner
 2. Drone rushes to the victim
 3. Do triage (sorting and allocating aid on the basis of need) 
 
 ## The functions
-1. Find smartphone by trilateration of LTE signal<br>
+1. Find cellphone by trilateration of LTE signal<br>
  we use [openairinterface5G](https://gitlab.eurecom.fr/oai/openairinterface5g) and LimeSDR.
 
 2. Do triage by moving and pulse via movie.<br>
